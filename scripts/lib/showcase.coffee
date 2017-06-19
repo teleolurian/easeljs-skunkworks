@@ -2,21 +2,24 @@ module.exports = class Showcase
   constructor: (@id) ->
     @stage = new createjs.Stage @id
     @objects = []
-    @fps = 60
+    @fps = 120
 
-  add: (obj) ->
-    @objects.push obj
+  add: (obj) -> @objects.push obj
 
   blit: ->
-    @prune()
+    #@prune()
     for o in @objects
-      o.step?()
-      o.draw?()
+      o.step()
+      o.draw()
       @stage.addChild o.entity
+    @stage.update()
 
   prune: ->
-    @objects = @objects.filter (o) -> o.should_be_pruned
+    @objects = @objects.filter (o) -> o.prunable()
 
-  loop: ->
-    @blit()
-    setTimeout @loop, Math.floor(1000 / @fps)
+  eventLoop: (fn = null) ->
+    eloop = =>
+      fn(this) if typeof fn is 'function'
+      @blit()
+      setTimeout eloop, Math.max(Math.floor(1000 / @fps), 10)
+    eloop()

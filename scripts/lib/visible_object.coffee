@@ -4,9 +4,14 @@ module.exports = class VisibleObject
   _beginDraw: -> @entity.graphics.beginFill(@color.hexcolor())
   _createEntity: -> @entity = new createjs.Shape()
   _deg2rad: (num) -> num * Math.PI / 180.0
+  _step: ->
+    return if @velocity is 0
+    xvel = @velocity * Math.cos @_deg2rad @direction
+    yvel = -1 * @velocity * Math.sin @_deg2rad @direction
+    @moveBy xvel, yvel
 
   constructor: ->
-    _createEntity()
+    @_createEntity()
     @direction    = 0 # in degrees
     @velocity     = 0 # in pixels
     @color        = new Color(128,128,128)
@@ -21,7 +26,7 @@ module.exports = class VisibleObject
 
 
   draw: -> # override me
-    @beginDraw().drawCircle(0,0,4)
+    @_beginDraw().drawCircle(0,0,4)
 
   moveBy: (x, y) ->
     @entity.x += x
@@ -31,9 +36,8 @@ module.exports = class VisibleObject
     @entity.x = x
     @entity.y = y
 
+  prunable: -> false
+
   step: -> # move in the direction you're going
-    return if @velocity is 0
-    xvel = @velocity * Math.cos @_deg2rad @direction
-    yvel = -1 * @velocity * Math.sin @deg2rad @direction
-    @moveBy x, y
+    @_step()
 

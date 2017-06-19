@@ -9,6 +9,7 @@ class BestApp
     @app.on 'ready', =>
       @window = new Electron.BrowserWindow width: 840, height: 720
       @loadPage 'index.html'
+      @window.webContents.openDevTools()
 
   constructor: ->
     {@app} = Electron
@@ -22,5 +23,6 @@ class BestApp
        pathname:  u
        protocol:  if is_remote then 'http:' else 'file:'
        slashes:    true
+
 
 module.exports = new BestApp()
