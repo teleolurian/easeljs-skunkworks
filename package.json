@@ -1,0 +1,23 @@
+{
+  "name": "easeljs-skunkworks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "build-scripts": "coffee -c -o ./public ./scripts",
+    "build-styles": "stylus -o ./public ./styles/main.styl"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "coffee-script": "^1.12.6",
+    "electron": "^1.6.11",
+    "jquery": "^3.2.1",
+    "lodash": "^4.17.4"
+  },
+  "devDependencies": {
+    "stylus": "^0.54.5"
+  }
+}

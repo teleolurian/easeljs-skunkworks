@@ -1,0 +1,5 @@
+#!/bin/bash
+
+npm run build-scripts
+npm run build-styles
+npm start
